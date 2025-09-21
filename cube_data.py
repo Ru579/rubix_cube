@@ -1,6 +1,8 @@
 class Face:
-    def __init__(self, colour):
+    def __init__(self, colour, surrounding_faces, numbers_to_be_moved):
         self.tiles = [f"{colour}{i}" for i in range(8)]
+        self.surrounding_faces = surrounding_faces
+        self.numbers_to_be_moved = numbers_to_be_moved
 
     def clockwise_spin(self):
         self.tiles = self.tiles[6:8] + self.tiles[0:6]
@@ -13,12 +15,14 @@ class Cube:
         for colour in ("white", "orange", "green", "red", "blue", "yellow"):
             setattr(self, colour, Face(colour[0]))
 
-        self.white = Face("w")
-        self.orange = Face("o")
-        self.green = Face("g")
-        self.red = Face("r")
-        self.blue = Face("b")
-        self.yellow = Face("y")
+        self.faces = {
+            "w": Face("w", ("b", "r", "g", "o"), ((2,1,0), (2,1,0), (2,1,0), (2,1,0))),
+            "o": Face("o", ("w", "g", "y", "b"), ((0,7,6), (0,7,6), ())),
+            "g": Face("g"),
+            "r": Face("r"),
+            "b": Face("b"),
+            "y": Face("y")
+        }
 
     def r(self):
         self.red.clockwise_spin()
