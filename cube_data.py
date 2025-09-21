@@ -12,18 +12,17 @@ class Face:
 
 class Cube:
     def __init__(self):
-        for colour in ("white", "orange", "green", "red", "blue", "yellow"):
-            setattr(self, colour, Face(colour[0]))
-
         self.faces = {
             "w": Face("w", ("b", "r", "g", "o"), ((2,1,0), (2,1,0), (2,1,0), (2,1,0))),
             "o": Face("o", ("w", "g", "y", "b"), ((0,7,6), (0,7,6), (0,7,6), (4,3,2))),
-            "g": Face("g"),
-            "r": Face("r"),
-            "b": Face("b"),
-            "y": Face("y")
+            "g": Face("g", ("w", "r", "y", "o"), ((6,5,4), (0,7,6), (2,1,0), (4,3,2))),
+            "r": Face("r", ("w", "b", "y", "g"), ((4,3,2), (0,7,6), (4,3,2), (4,3,2))),
+            "b": Face("b", ("w", "o", "y", "r"), ((2,1,0), (0,7,6), (6,5,4), (4,3,2))),
+            "y": Face("y", ("g", "r", "b", "o"), ((6,5,4), (6,5,4), (6,5,4), (6,5,4)))
         }
 
-    def r(self):
-        self.red.clockwise_spin()
-        other_edges = (self.white.tiles[2:5], self.blue.tiles[6:8] + [self.blue.tiles[0]], )
+    def turn_side(self, colour_of_side_turning):
+        self.faces[colour_of_side_turning].clockwise_spin()
+        face_copies = [self.faces[colour_of_side_turning].numbers_to_be_moved[0]]
+        for i in range(3):
+            face_copies.append(self.faces[colour_of_side_turning].surrounding_faces[i+1][self.faces[colour_of_side_turning[]]])
