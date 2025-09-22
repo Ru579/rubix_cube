@@ -67,7 +67,6 @@ class Cube:
                 self.d_face[2][i] = r_col[2-i]
                 self.l_face[i][0] = d_row[i]
 
-
     def u_turn(self, direction = "c"):
         self.rotate_face("u", direction)
         f_row = self.f_face[0]
@@ -131,10 +130,10 @@ class Cube:
 
 
 
-cube = Cube()
-print(cube.f_face)
-cube.u_turn("ac")
-print(cube.f_face)
+#cube = Cube()
+#print(cube.f_face)
+#cube.u_turn("ac")
+#print(cube.f_face)
 #cube.u_turn("c")
 #print(cube.f_face)
 #
