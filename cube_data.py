@@ -29,10 +29,14 @@ class Cube:
 
     def f_turn(self, direction = "c"):
         self.rotate_face("f", direction)
-        u_row = self.u_face[2]
+        u_row = self.u_face[2].copy()
+        print(u_row)
         r_col = [self.r_face[i][0] for i in range(3)]
-        d_row = self.d_face[0]
+        print(r_col)
+        d_row = self.d_face[0].copy()
+        print(d_row)
         l_col = [self.l_face[i][2] for i in range(3)]
+        print(l_col)
 
         if direction == "c":
             for i in range(3):
@@ -46,6 +50,11 @@ class Cube:
                 self.r_face[i][0] = d_row[2-i]
                 self.d_face[0][i] = l_col[i]
                 self.l_face[i][2] = u_row[2-i]
+
+        print(self.u_face)
+        print(self.r_face)
+        print(self.d_face)
+        print(self.l_face)
 
     def b_turn(self, direction = "c"):
         self.rotate_face("b", direction)
