@@ -47,11 +47,16 @@ class CubeNet:
         self.button_frame = Frame(self.main_window)
         self.button_frame.pack()
 
-        Button(self.button_frame, font = ("Calibri Bold", 12), text = "U",width = 7, height = 2, command = lambda: self.turn_side("u")).grid(row = 0, column=0, padx = 10, pady = 10)
-        Button(self.button_frame, font=("Calibri Bold", 12), text="U'", width=7, height=2, command=lambda: self.turn_side("u", True)).grid(row=1, column=0, padx=10, pady=10)
-        Button(self.button_frame, font = ("Calibri Bold", 12), text="F",width = 7, height = 2, command=lambda: self.turn_side("f")).grid(row = 0, column=1, padx = 10, pady = 10)
-        Button(self.button_frame, font = ("Calibri Bold", 12), text="R",width = 7, height = 2, command=lambda: self.turn_side("r")).grid(row = 0, column=2, padx = 10, pady = 10)
-        Button(self.button_frame, font=("Calibri Bold", 12), text="R'", width=7, height=2, command=lambda: self.turn_side("r", True)).grid(row=1, column=2, padx=10, pady=10)
+        for column, face in enumerate(self.face_abbr):
+            print(face)
+            Button(self.button_frame, font = ("Calibri Bold", 12), text = face.upper(), width = 7, height = 2, command = lambda current_face = face: self.turn_side(current_face, prime = False)).grid(row=0, column= column, padx = 10, pady = 10)
+            Button(self.button_frame, font=("Calibri Bold", 12), text=f"{face.upper()}'", width=7, height=2, command=lambda current_face = face: self.turn_side(current_face, prime=True)).grid(row=1, column=column, padx=10, pady=10)
+
+        #Button(self.button_frame, font = ("Calibri Bold", 12), text = "U",width = 7, height = 2, command = lambda: self.turn_side("u")).grid(row = 0, column=0, padx = 10, pady = 10)
+        #Button(self.button_frame, font=("Calibri Bold", 12), text="U'", width=7, height=2, command=lambda: self.turn_side("u", True)).grid(row=1, column=0, padx=10, pady=10)
+        #Button(self.button_frame, font = ("Calibri Bold", 12), text="F",width = 7, height = 2, command=lambda: self.turn_side("f")).grid(row = 0, column=1, padx = 10, pady = 10)
+        #Button(self.button_frame, font = ("Calibri Bold", 12), text="R",width = 7, height = 2, command=lambda: self.turn_side("r")).grid(row = 0, column=2, padx = 10, pady = 10)
+        #Button(self.button_frame, font=("Calibri Bold", 12), text="R'", width=7, height=2, command=lambda: self.turn_side("r", True)).grid(row=1, column=2, padx=10, pady=10)
 
 
     def update_faces(self):
@@ -62,18 +67,21 @@ class CubeNet:
                     self.face_tiles[face][row][column].config(text = colour_letter, bg = self.letters_to_colour[colour_letter])
 
     def turn_side(self, face, prime = False):
+        direction = "ac" if prime else "c"
         if face == "u":
-            if not prime:
-                self.cube.u_turn()
-            else:
-                self.cube.u_turn(direction= "ac")
+            self.cube.u_turn(direction= direction)
+        elif face == "l":
+            self.cube.l_turn(direction= direction)
         elif face == "f":
-            self.cube.f_turn()
+            self.cube.f_turn(direction = direction)
         elif face == "r":
-            if not prime:
-                self.cube.r_turn()
-            else:
-                self.cube.r_turn(direction= "ac")
+            self.cube.r_turn(direction= direction)
+        elif face == "b":
+            self.cube.b_turn(direction= direction)
+        elif face == "d":
+            print("turning d side")
+            self.cube.d_turn(direction= direction)
+
         self.update_faces()
 
 cube_net = CubeNet()

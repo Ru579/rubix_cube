@@ -30,13 +30,9 @@ class Cube:
     def f_turn(self, direction = "c"):
         self.rotate_face("f", direction)
         u_row = self.u_face[2].copy()
-        print(u_row)
         r_col = [self.r_face[i][0] for i in range(3)]
-        print(r_col)
         d_row = self.d_face[0].copy()
-        print(d_row)
         l_col = [self.l_face[i][2] for i in range(3)]
-        print(l_col)
 
         if direction == "c":
             for i in range(3):
@@ -51,16 +47,11 @@ class Cube:
                 self.d_face[0][i] = l_col[i]
                 self.l_face[i][2] = u_row[2-i]
 
-        print(self.u_face)
-        print(self.r_face)
-        print(self.d_face)
-        print(self.l_face)
-
     def b_turn(self, direction = "c"):
         self.rotate_face("b", direction)
-        u_row = self.u_face[0]
+        u_row = self.u_face[0].copy()
         r_col = [self.r_face[i][2] for i in range(3)]
-        d_row = self.d_face[2]
+        d_row = self.d_face[2].copy()
         l_col = [self.l_face[i][0] for i in range(3)]
 
         if direction == "c":
@@ -94,7 +85,7 @@ class Cube:
         l_row = self.l_face[2]
 
         new_rows = (l_row, f_row, r_row, b_row) if direction == "c" else (r_row, b_row, l_row, f_row)
-        self.f_face[0], self.r_face[0], self.b_face[0], self.l_face[0] = new_rows
+        self.f_face[2], self.r_face[2], self.b_face[2], self.l_face[2] = new_rows
 
     def r_turn(self, direction = "c"):
         self.rotate_face("r", direction)
@@ -135,9 +126,6 @@ class Cube:
                 self.u_face[i][0] = f_col[i]
                 self.b_face[i][2] = u_col[2 - i]
                 self.d_face[i][0] = b_col[i]
-
-
-
 
 #cube = Cube()
 #print(cube.f_face)
